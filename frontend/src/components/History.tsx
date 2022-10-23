@@ -11,7 +11,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 function History() {
     const [historys,setHistorys] = useState<HistorysInterface[]>([]);
 
-    const getHistorys = async () => {1
+    const getHistorys = async () => {
         let res = await GetHistorys();
         if (res) {
             setHistorys(res);
