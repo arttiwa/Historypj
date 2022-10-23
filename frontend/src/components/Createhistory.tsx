@@ -1,42 +1,26 @@
 import React,{useState,useEffect} from "react";
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Snackbar from "@mui/material/Snackbar";
-import CloseIcon from '@mui/icons-material/Close';
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import Alert from '@mui/material/Alert';
 import { Link as RouterLink } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
 import Divider from "@mui/material/Divider";
-import { UsersInterface } from "../models/IUser";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { HistorysInterface } from "../models/IHistory";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { CartsInterface } from "../models/ICart";
 import { DMGlevelsInterface } from "../models/IDMGlevel";
-import { EstimateInterface } from "../models/IEstimate";
 
 import {
-  GetBuildings,
-  GetUser,
   GetCarts,
   GetDMGlevels,
-  Requests,
   GetEstimates,
   GetOnlyCart,
   GetRequest,
@@ -64,7 +48,6 @@ function Createhistory() {
     const [room,setRoom] = useState<RHDsInterface>({});
     const [device,setDevice] = useState<DevicesInterface>({});
     const [Building,setBuilding] = useState<BuildingsInterface>({});
-
 
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
@@ -191,8 +174,6 @@ function Createhistory() {
       GetEstimates();
     }, []);
 
-
-
   return (
     <div>
       <Container maxWidth="md">
@@ -297,13 +278,6 @@ function Createhistory() {
                             value={ `ชื่อตึก: ${rhd?.Room?.Building?.Name}\n`+
                                     `ชื่อห้อง: ${rhd?.Room?.Name}`}
                           />
-
-                        {/* <TextField
-                          value={cart?.Request?.Room_has_Device_ID || ""}
-                          InputProps={{
-                            readOnly: true,
-                          }}
-                        /> */}
                     </FormControl>
                 </Grid>
                 <Grid item xs={6}>
@@ -388,7 +362,7 @@ function Createhistory() {
                   </Box> 
 
                     <Grid item xs={12}>
-                  <Button component={RouterLink} to="/" variant="contained">
+                  <Button component={RouterLink} to="/history" variant="contained">
                     Back
                   </Button>
                   <Button

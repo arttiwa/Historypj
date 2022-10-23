@@ -25,7 +25,7 @@ func CreateHistory(c *gin.Context) {
 func GetHistory(c *gin.Context) {
 	var history entity.History
 	id := c.Param("id")
-	if err := entity.DB().Raw("SELECT * FROM historys WHERE id = ?", id).Scan(&history).Error; err != nil {
+	if err := entity.DB().Raw("SELECT * FROM histories WHERE id = ?", id).Scan(&history).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -35,7 +35,7 @@ func GetHistory(c *gin.Context) {
 // GET /historys
 func ListHistorys(c *gin.Context) {
 	var historys []entity.History
-	if err := entity.DB().Preload("Cart").Preload("Cart.Request").Raw("SELECT * FROM historys").Find(&historys).Error; err != nil {
+	if err := entity.DB().Preload("Cart").Preload("Cart.Request").Raw("SELECT * FROM histories").Find(&historys).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -45,7 +45,7 @@ func ListHistorys(c *gin.Context) {
 // DELETE /historys/:id
 func DeleteHistory(c *gin.Context) {
 	id := c.Param("id")
-	if tx := entity.DB().Exec("DELETE FROM historys WHERE id = ?", id); tx.RowsAffected == 0 {
+	if tx := entity.DB().Exec("DELETE FROM histories WHERE id = ?", id); tx.RowsAffected == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "history not found"})
 		return
 	}

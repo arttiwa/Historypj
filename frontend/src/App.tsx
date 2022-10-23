@@ -29,6 +29,7 @@ import SignIn from "./components/Signin";
 import Home from "./components/Home";
 import RequestCreate from "./components/RequestCreate";
 import Createhistory from "./components/Createhistory";
+import History from "./components/History";
 
 const drawerWidth = 240;
 
@@ -83,8 +84,10 @@ const Drawer = styled(MuiDrawer, {
 const menu = [
   { name: "หน้าแรก", icon: <HomeIcon />, path: "/",roleLevel:1 },
   { name: "ข้อมูลการแจ้งซ่อม", icon: <PeopleIcon />, path: "/request",roleLevel:1 },
-  { name: "สรุปผลการซ่อมบำรุง", icon: <PeopleIcon />, path: "/history/create",roleLevel:2 },
   { name: "จองตารางงาน", icon: <PeopleIcon />, path: "/cart",roleLevel:2 },
+  //{ name: "[บันทึกผลตารางงาน]", icon: <PeopleIcon />, path: "/cart/create",roleLevel:2 },
+  //{ name: "สรุปผลการซ่อมบำรุง", icon: <PeopleIcon />, path: "/history/create",roleLevel:2 },
+  { name: "ประวัติการซ่อมบำรุง", icon: <PeopleIcon />, path: "/history",roleLevel:2 },
 
 ];
 
@@ -200,8 +203,10 @@ return (
                 <Route path="/" element={<Home />} />
                 <Route path="/request" element={<Request />} />
                 <Route path="/request/create" element={<RequestCreate />} />
+                <Route path="/cart/create" element={<CartCreate />} />
+                <Route path="/cart/" element={<Cart />} />
                 <Route path="/history/create" element={<Createhistory />} />
-                <Route path="/cart/create" element={<Cart />} />
+                <Route path="/history/" element={<History />} />
                {/* <Route path="/user/create" element={<UserCreate />} />
                  <Route path="/user/create" element={<UserCreate />} />
                 <Route path="/watch_videos" element={<WatchVideos />} />

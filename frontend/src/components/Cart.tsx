@@ -7,11 +7,14 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { GetCarts } from "../services/HttpClientService";
 import { CartsInterface } from "../models/ICart";
+import { ListCarts } from "../services/HttpClientService";
+
+
 function Carts() {
   const [carts, setcarts] = useState<CartsInterface[]>([]);
 
   const getCarts = async () => {
-    let res = await GetCarts();
+    let res = await ListCarts();
     if (res) {
       setcarts(res);
     }
@@ -28,13 +31,17 @@ function Carts() {
     { field: "ID", headerName: "ลำดับ", width: 50 },
     { field: "Start_Work", headerName: "รายการจองเวลางาน", width: 300 },
     { field: "Estimate", headerName: "ประเภทการซ่อมบำรุง", width: 200 },
-
+    {
+      field: "Estimate",
+      headerName: "ประเภทการซ่อมบำรุง",
+      width: 200,
+      valueFormatter: (params) => params.value.Name,
+    },
   ];
 
   useEffect(() => {
     getCarts();
     console.log(carts);
-
   }, []);
   
   return (
@@ -59,7 +66,7 @@ function Carts() {
           <Box>
             <Button
               component={RouterLink}
-              to="/carts/create"
+              to="/cart/create"
               variant="contained"
               color="primary"
             >
