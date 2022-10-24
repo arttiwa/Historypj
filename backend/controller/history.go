@@ -9,16 +9,51 @@ import (
 
 // POST /historys
 func CreateHistory(c *gin.Context) {
-	var history entity.History
-	if err := c.ShouldBindJSON(&history); err != nil {
+	var History entity.History
+	var DMGLevel entity.DMGLevel
+	var Cart entity.Cart
+	var User entity.User
+
+	// ผลลัพธ์ที่ได้จากขั้นตอนที่ 12 จะถูก bind เข้าตัวแปร History
+	if err := c.ShouldBindJSON(&History); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	if err := entity.DB().Create(&history).Error; err != nil {
+
+	// 13 ค้นหา DMGLevel ด้วย id
+	if tx := entity.DB().Where("id = ?", History.DMGLevelID).First(&DMGLevel); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "not found DMGLevel in History "})
+		return
+	}
+
+	// 14: ค้นหา Cart ด้วย id
+	if tx := entity.DB().Where("id = ?", History.CartID).First(&Cart); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "not found Cart in History"})
+		return
+	}
+
+	// x: ค้นหา User ด้วย id ขั้นตอนนี้ไม่จำเป็น เพราะมีการเช็คตั้งแต่ ขั้นตอนที่3
+	if tx := entity.DB().Where("id = ?", History.UserID).First(&User); tx.RowsAffected == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "not found User"})
+		return
+	}
+	// 15: สร้าง History
+	rq := entity.History{
+		Cause:    History.Cause,
+		Solution: History.Solution,
+		Price : History.Price,
+		
+		User:            User,
+		DMGLevel: DMGLevel,
+		Cart:         Cart,
+	}
+
+	// 16: บันทึก
+	if err := entity.DB().Create(&rq).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"data": history})
+	c.JSON(http.StatusCreated, gin.H{"data": rq})
 }
 
 // GET /history/:id

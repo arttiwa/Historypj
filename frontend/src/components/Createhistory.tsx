@@ -21,16 +21,13 @@ import { DMGlevelsInterface } from "../models/IDMGlevel";
 import {
   GetCarts,
   GetDMGlevels,
-  GetEstimates,
   GetOnlyCart,
   GetRequest,
   GetOnlyRHD,
   History,
 } from "../services/HttpClientService";
 import { RequestsInterface } from "../models/IRequest";
-import { flexbox } from "@mui/system";
 import { RHDsInterface } from "../models/IRHD";
-import {RoomsInterface} from  "../models/IRoom";
 import { DevicesInterface } from "../models/IDevice";
 import { BuildingsInterface } from "../models/IBuilding";
 
@@ -45,9 +42,6 @@ function Createhistory() {
     const [request,setRequest] = useState<RequestsInterface>({});
     const [rhd,setRHD] = useState<RHDsInterface>({});
     const [dmglevels,setDMGlevels] = useState<DMGlevelsInterface[]>([]);
-    const [room,setRoom] = useState<RHDsInterface>({});
-    const [device,setDevice] = useState<DevicesInterface>({});
-    const [Building,setBuilding] = useState<BuildingsInterface>({});
 
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
@@ -171,7 +165,6 @@ function Createhistory() {
     useEffect(() => {
       getCarts();
       getDMGlevels();
-      GetEstimates();
     }, []);
 
   return (
@@ -247,7 +240,7 @@ function Createhistory() {
                     <FormControl fullWidth variant="outlined">
                       <p>ผู้แจ้ง</p>
                       <TextField
-                        value={request?.User?.Name || ""}   /////////////////////////////
+                        value={request?.User?.Name || ""}  
                         InputProps={{
                           readOnly: true,
                         }}
@@ -304,7 +297,6 @@ function Createhistory() {
                           }}/>
                     </FormControl>
                   </Grid>
-                  {/* <Divider /> */}
                              
                   <Grid container spacing={2}>
                     <Grid item xs={12}><p>สาเหตุที่เสีย</p>
