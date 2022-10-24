@@ -28,9 +28,6 @@ import {
 } from "../services/HttpClientService";
 import { RequestsInterface } from "../models/IRequest";
 import { RHDsInterface } from "../models/IRHD";
-import { DevicesInterface } from "../models/IDevice";
-import { BuildingsInterface } from "../models/IBuilding";
-
 
 function Createhistory() {
     const [history,setHistory] = useState<HistorysInterface>({});
@@ -46,13 +43,14 @@ function Createhistory() {
     const [success, setSuccess] = React.useState(false);
     const [error, setError] = React.useState(false);
 
-    const handleInputChange = (
-      event: React.ChangeEvent<{ id?: string; value: any }>
-    ) => {
-      const id = event.target.id as keyof typeof Createhistory;
-      const { value } = event.target;
-      setHistory({ ...history, [id]: value });
-    };  
+    // const handleInputChange = (
+    //   event: React.ChangeEvent<{ id?: string; value: any }>
+    // ) => {
+    //   const id = event.target.id as keyof typeof Createhistory;
+    //   const { value } = event.target;
+    //   setHistory({ ...history, [id]: value });
+    // };  
+    
     const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
       props,
       ref
@@ -207,7 +205,7 @@ function Createhistory() {
                     color="primary"
                     gutterBottom
                   >รายการงานที่เลือก
-                  </Typography>
+                </Typography>
                   <Grid item xs={6}>
                   <Select
                     required
